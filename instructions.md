@@ -13,7 +13,7 @@
     cd ** название репозитория **  
     ls -R  
     ![](assets/images/67_checking_last.png)  
-На машине LinuxA внесем ряд изменений в файл env. (адрес нашей машины B c mosquitto и интересующий нас докерхаб), например:  
+На машине LinuxA внесем ряд изменений в файл env. (адрес нашей машины B c mosquitto и интересующий нас докерхаб), предварительно перейдя в папку репозитория например:  
     ![](assets/images/68_checking_last.png)  
     ![](assets/images/69_checking_last.png)  
 На этой же машине запустим контейнеры с сенсорами и просмотрим (важно: находясь в папке client):  
@@ -22,6 +22,8 @@
     ![](assets/images/71_checking_last.png)  
 Проверим с помощью MQTT Explorer:  
     ![](assets/images/72_checking_last.png)  
+Перейдя на машину С также внесем ряд изменений в файл env. (адрес нашей машины B c mosquitto):  
+
 На машине С также запустим и посмотрим контейнеры (важно: находясь в папке server):  
     ![](assets/images/73_checking_last.png)  
     ![](assets/images/74_checking_last.png)  
