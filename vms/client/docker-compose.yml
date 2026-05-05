@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+  temp1:
+    image: sheflervaleriia/sensor-sim
+    environment:
+      - SIM_HOST=mosquitto
+      - SIM_NAME=temp1
+      - SIM_PERIOD=2
+      - SIM_TYPE=temperature
+
+  temp2:
+    image: sheflervaleriia/sensor-sim
+    environment:
+      - SIM_HOST=mosquitto
+      - SIM_NAME=temp2
+      - SIM_PERIOD=3
+      - SIM_TYPE=temperature
+
+  pressure1:
+    image: sheflervaleriia/sensor-sim
+    environment:
+      - SIM_HOST=mosquitto
+      - SIM_NAME=pressure1
+      - SIM_PERIOD=4
+      - SIM_TYPE=pressure
+
+  pressure2:
+    image: sheflervaleriia/sensor-sim
+    environment:
+      - SIM_HOST=mosquitto
+      - SIM_NAME=pressure2
+      - SIM_PERIOD=5
+      - SIM_TYPE=pressure
+
+  current1:
+    image: sheflervaleriia/sensor-sim
+    environment:
+      - SIM_HOST=mosquitto
+      - SIM_NAME=current1
+      - SIM_PERIOD=1
+      - SIM_TYPE=current
+
+  humidity1:
+    image: sheflervaleriia/sensor-sim
+    environment:
+      - SIM_HOST=mosquitto
+      - SIM_NAME=humidity1
+      - SIM_PERIOD=3
+      - SIM_TYPE=humidity
+
+networks:
+   iot-net:
+     driver: bridge
