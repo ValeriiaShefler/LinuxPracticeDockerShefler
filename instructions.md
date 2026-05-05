@@ -7,16 +7,12 @@
     - На каждой машине необходимо установить: git, docker, docker-compose
 
 # 1. Проверка репозитория
-На машине LinuxA произведите клонирование репозитория студента и просмотрите структуру:  
+Произведем клонирование репозитория студента на каждую виртуальную машину:  
     git clone ** ссылка **  
     cd ** название репозитория **  
     ls -R  
     ![](assets/images/67_checking_last.png)  
-Проверим, что в docker-compose файле нужное количество датчиков:  
+На машине LinuxA внесем ряд изменений в файл env. (адрес нашей машины B c mosquitto и интересующий нас докерхаб), например:  
     ![](assets/images/68_checking_last.png)  
-На машине B также произведем клонирование репозитория студента аналогичным образом и произведем запуск docker-compose:  
-    ![](assets/images/71_checking_last.png)  
-Проверим конфигурацию moquitto:  
-    ![](assets/images/72_checking_last.png)  
-Вернемся на машину LinuxA. Когда мы в директории ~/* название репозитория */vms/client произведем запуск docker-compose и проверку:  
-    ![](assets/images/70_checking_last.png)  
+    ![](assets/images/69_checking_last.png)  
+

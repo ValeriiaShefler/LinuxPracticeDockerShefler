@@ -2,7 +2,7 @@ version: "3"
 
 services:
   temp1:
-    image: ${DOCKERHUB_USERNAME}/sensor-simulator:latest
+    image: ${DOCKERHUB_USERNAME}/sensor-sim:latest
     environment:
       - SIM_HOST=${MQTT_BROKER_HOST}
       - SIM_PORT=${MQTT_BROKER_PORT}
@@ -11,7 +11,7 @@ services:
       - SIM_TYPE=temperature
 
   temp2:
-    image: ${DOCKERHUB_USERNAME}/sensor-simulator:latest
+    image: ${DOCKERHUB_USERNAME}/sensor-sim:latest
     environment:
       - SIM_HOST=${MQTT_BROKER_HOST}
       - SIM_PORT=${MQTT_BROKER_PORT}
@@ -20,7 +20,7 @@ services:
       - SIM_TYPE=temperature
 
   pressure1:
-    image: ${DOCKERHUB_USERNAME}/sensor-simulator:latest
+    image: ${DOCKERHUB_USERNAME}/sensor-sim:latest
     environment:
       - SIM_HOST=${MQTT_BROKER_HOST}
       - SIM_PORT=${MQTT_BROKER_PORT}
@@ -29,7 +29,7 @@ services:
       - SIM_TYPE=pressure
 
   pressure2:
-    image: ${DOCKERHUB_USERNAME}/sensor-simulator:latest
+    image: ${DOCKERHUB_USERNAME}/sensor-sim:latest
     environment:
       - SIM_HOST=${MQTT_BROKER_HOST}
       - SIM_PORT=${MQTT_BROKER_PORT}
@@ -38,7 +38,7 @@ services:
       - SIM_TYPE=pressure
 
   current1:
-    image: ${DOCKERHUB_USERNAME}/sensor-simulator:latest
+    image: ${DOCKERHUB_USERNAME}/sensor-sim:latest
     environment:
       - SIM_HOST=${MQTT_BROKER_HOST}
       - SIM_PORT=${MQTT_BROKER_PORT}
@@ -47,7 +47,7 @@ services:
       - SIM_TYPE=current
 
   humidity1:
-    image: ${DOCKERHUB_USERNAME}/sensor-simulator:latest
+    image: ${DOCKERHUB_USERNAME}/sensor-sim:latest
     environment:
       - SIM_HOST=${MQTT_BROKER_HOST}
       - SIM_PORT=${MQTT_BROKER_PORT}
