@@ -415,80 +415,73 @@ docker-compose up -d и проверим, что dashboard не пропал:
     services:
     mosquitto:
         image: eclipse-mosquitto
+        container_name: mosquitto
+        restart: always
         ports:
         - "1883:1883"
-        networks:
-        - iot-net
-
-    networks:
-    iot-net:
-        driver: bridge  
+        volumes:
+        - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf  
 Изменим аналогичный файл на  машине A:  
      version: "3"
 
     services:
     temp1:
-        image: sheflervaleriia/sensor-sim
+        image: ${DOCKERHUB_USERNAME}/sensor-simulator:latest
         environment:
-        - SIM_HOST=mosquitto
+        - SIM_HOST=${MQTT_BROKER_HOST}
+        - SIM_PORT=${MQTT_BROKER_PORT}
         - SIM_NAME=temp1
         - SIM_PERIOD=2
         - SIM_TYPE=temperature
-        networks:
-        - iot-net
 
     temp2:
-        image: sheflervaleriia/sensor-sim
+        image: ${DOCKERHUB_USERNAME}/sensor-simulator:latest
         environment:
-        - SIM_HOST=mosquitto
+        - SIM_HOST=${MQTT_BROKER_HOST}
+        - SIM_PORT=${MQTT_BROKER_PORT}
         - SIM_NAME=temp2
         - SIM_PERIOD=3
         - SIM_TYPE=temperature
-        networks:
-        - iot-net
 
     pressure1:
-        image: sheflervaleriia/sensor-sim
+        image: ${DOCKERHUB_USERNAME}/sensor-simulator:latest
         environment:
-        - SIM_HOST=mosquitto
+        - SIM_HOST=${MQTT_BROKER_HOST}
+        - SIM_PORT=${MQTT_BROKER_PORT}
         - SIM_NAME=pressure1
         - SIM_PERIOD=4
         - SIM_TYPE=pressure
-        networks:
-        - iot-net
 
     pressure2:
-        image: sheflervaleriia/sensor-sim
+        image: ${DOCKERHUB_USERNAME}/sensor-simulator:latest
         environment:
-        - SIM_HOST=mosquitto
+        - SIM_HOST=${MQTT_BROKER_HOST}
+        - SIM_PORT=${MQTT_BROKER_PORT}
         - SIM_NAME=pressure2
         - SIM_PERIOD=5
         - SIM_TYPE=pressure
-        networks:
-        - iot-net
 
     current1:
-        image: sheflervaleriia/sensor-sim
+        image: ${DOCKERHUB_USERNAME}/sensor-simulator:latest
         environment:
-        - SIM_HOST=mosquitto
+        - SIM_HOST=${MQTT_BROKER_HOST}
+        - SIM_PORT=${MQTT_BROKER_PORT}
         - SIM_NAME=current1
         - SIM_PERIOD=1
         - SIM_TYPE=current
-        networks:
-        - iot-net
 
     humidity1:
-        image: sheflervaleriia/sensor-sim
+        image: ${DOCKERHUB_USERNAME}/sensor-simulator:latest
         environment:
-        - SIM_HOST=mosquitto
+        - SIM_HOST=${MQTT_BROKER_HOST}
+        - SIM_PORT=${MQTT_BROKER_PORT}
         - SIM_NAME=humidity1
         - SIM_PERIOD=3
-        - SIM_TYPE=humidity  
-        networks:
-        - iot-net
-    
-    networks:
-        iot-net:
-            driver: bridge
+        - SIM_TYPE=humidity
+
+Также добавим файл .env на машину Linux A:  
+    MQTT_BROKER_HOST=192.168.X.X   # IP VM B !!!
+    MQTT_BROKER_PORT=1883
+    DOCKERHUB_USERNAME=sheflervaleriia
 
 Ссылка на docker-hub: https://hub.docker.com/repository/docker/sheflervaleriia/sensor-sim/general
