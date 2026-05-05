@@ -410,7 +410,19 @@ docker-compose up -d и проверим, что dashboard не пропал:
 Действительно, теперь графики не пропадают.  
 
 Внесем еще ряд изменений, создадим docker-compose файл для машины B:  
-    ![ ](assets/images/69_docker-compose.yml_B.png)  
+    version: "3"
+
+    services:
+    mosquitto:
+        image: eclipse-mosquitto
+        ports:
+        - "1883:1883"
+        networks:
+        - iot-net
+
+    networks:
+    iot-net:
+        driver: bridge  
 Изменим аналогичный файл на  машине A:  
      version: "3"
 
@@ -422,6 +434,8 @@ docker-compose up -d и проверим, что dashboard не пропал:
         - SIM_NAME=temp1
         - SIM_PERIOD=2
         - SIM_TYPE=temperature
+        networks:
+        - iot-net
 
     temp2:
         image: sheflervaleriia/sensor-sim
@@ -430,6 +444,8 @@ docker-compose up -d и проверим, что dashboard не пропал:
         - SIM_NAME=temp2
         - SIM_PERIOD=3
         - SIM_TYPE=temperature
+        networks:
+        - iot-net
 
     pressure1:
         image: sheflervaleriia/sensor-sim
@@ -438,6 +454,8 @@ docker-compose up -d и проверим, что dashboard не пропал:
         - SIM_NAME=pressure1
         - SIM_PERIOD=4
         - SIM_TYPE=pressure
+        networks:
+        - iot-net
 
     pressure2:
         image: sheflervaleriia/sensor-sim
@@ -446,6 +464,8 @@ docker-compose up -d и проверим, что dashboard не пропал:
         - SIM_NAME=pressure2
         - SIM_PERIOD=5
         - SIM_TYPE=pressure
+        networks:
+        - iot-net
 
     current1:
         image: sheflervaleriia/sensor-sim
@@ -454,6 +474,8 @@ docker-compose up -d и проверим, что dashboard не пропал:
         - SIM_NAME=current1
         - SIM_PERIOD=1
         - SIM_TYPE=current
+        networks:
+        - iot-net
 
     humidity1:
         image: sheflervaleriia/sensor-sim
@@ -462,7 +484,11 @@ docker-compose up -d и проверим, что dashboard не пропал:
         - SIM_NAME=humidity1
         - SIM_PERIOD=3
         - SIM_TYPE=humidity  
+        networks:
+        - iot-net
     
     networks:
         iot-net:
             driver: bridge
+
+Ссылка на docker-hub: https://hub.docker.com/repository/docker/sheflervaleriia/sensor-sim/general

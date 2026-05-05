@@ -1,6 +1,13 @@
-mosquitto:
-   image: eclipse-mosquitto
-   ports:
-     - "1883:1883"
-   networks:
-     - iot-net  
+version: "3"
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto
+    ports:
+      - "1883:1883"
+    networks:
+      - iot-net
+
+networks:
+  iot-net:
+    driver: bridge

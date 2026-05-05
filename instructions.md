@@ -14,3 +14,14 @@
     ![](assets/images/67_checking_last.png)  
 Проверим, что в docker-compose файле нужное количество датчиков:  
     ![](assets/images/68_checking_last.png)  
+На машине B также произведем клонирование репозитория студента аналогичным образом и произведем запуск docker-compose:  
+    ![](assets/images/71_checking_last.png)  
+
+
+
+
+
+
+
+Когда мы в директории ~/* название репозитория */vms/client произведем запуск docker-compose и проверку:  
+    ![](assets/images/70_checking_last.png)  
