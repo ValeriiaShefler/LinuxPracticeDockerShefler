@@ -15,6 +15,8 @@ services:
   telegraf:
     image: telegraf
     container_name: telegraf
+    env_file:
+      - .env
     volumes:
       - ./telegraf:/etc/telegraf:ro
     restart: unless-stopped

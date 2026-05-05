@@ -426,7 +426,7 @@ docker-compose up -d и проверим, что dashboard не пропал:
 
     services:
     temp1:
-        image: ${DOCKERHUB_USERNAME}/sensor-simulator:latest
+        image: ${DOCKERHUB_USERNAME}/sensor-sim:latest
         environment:
         - SIM_HOST=${MQTT_BROKER_HOST}
         - SIM_PORT=${MQTT_BROKER_PORT}
@@ -435,7 +435,7 @@ docker-compose up -d и проверим, что dashboard не пропал:
         - SIM_TYPE=temperature
 
     temp2:
-        image: ${DOCKERHUB_USERNAME}/sensor-simulator:latest
+        image: ${DOCKERHUB_USERNAME}/sensor-sim:latest
         environment:
         - SIM_HOST=${MQTT_BROKER_HOST}
         - SIM_PORT=${MQTT_BROKER_PORT}
@@ -444,7 +444,7 @@ docker-compose up -d и проверим, что dashboard не пропал:
         - SIM_TYPE=temperature
 
     pressure1:
-        image: ${DOCKERHUB_USERNAME}/sensor-simulator:latest
+        image: ${DOCKERHUB_USERNAME}/sensor-sim:latest
         environment:
         - SIM_HOST=${MQTT_BROKER_HOST}
         - SIM_PORT=${MQTT_BROKER_PORT}
@@ -453,7 +453,7 @@ docker-compose up -d и проверим, что dashboard не пропал:
         - SIM_TYPE=pressure
 
     pressure2:
-        image: ${DOCKERHUB_USERNAME}/sensor-simulator:latest
+        image: ${DOCKERHUB_USERNAME}/sensor-sim:latest
         environment:
         - SIM_HOST=${MQTT_BROKER_HOST}
         - SIM_PORT=${MQTT_BROKER_PORT}
@@ -462,7 +462,7 @@ docker-compose up -d и проверим, что dashboard не пропал:
         - SIM_TYPE=pressure
 
     current1:
-        image: ${DOCKERHUB_USERNAME}/sensor-simulator:latest
+        image: ${DOCKERHUB_USERNAME}/sensor-sim:latest
         environment:
         - SIM_HOST=${MQTT_BROKER_HOST}
         - SIM_PORT=${MQTT_BROKER_PORT}
@@ -471,7 +471,7 @@ docker-compose up -d и проверим, что dashboard не пропал:
         - SIM_TYPE=current
 
     humidity1:
-        image: ${DOCKERHUB_USERNAME}/sensor-simulator:latest
+        image: ${DOCKERHUB_USERNAME}/sensor-sim:latest
         environment:
         - SIM_HOST=${MQTT_BROKER_HOST}
         - SIM_PORT=${MQTT_BROKER_PORT}
@@ -485,3 +485,31 @@ docker-compose up -d и проверим, что dashboard не пропал:
     DOCKERHUB_USERNAME=sheflervaleriia
 
 Ссылка на docker-hub: https://hub.docker.com/repository/docker/sheflervaleriia/sensor-sim/general
+
+Аналогично поступим и с машиной С, создадим .env файл с информацией, которую при необходимости можно будет быстро изменить:  
+    MQTT_HOST=192.168.X.X
+    MQTT_PORT=1883
+    INFLUX_HOST=influxdb
+    INFLUX_PORT=8086
+    INFLUX_DB=sensors
+    INFLUX_USER=telegraf
+    INFLUX_PASS=telegraf  
+
+Тогда в telegraf.conf:  
+    [[inputs.mqtt_consumer]]
+    servers = ["tcp://${MQTT_HOST}:${MQTT_PORT}"]
+    topics = ["sensors/#"]
+    data_format = "value"
+    data_type = "float"
+
+А в docker-compose.yml изменим:  
+  telegraf:
+    image: telegraf
+    container_name: telegraf
+    env_file:
+      - .env
+    volumes:
+      - ./telegraf:/etc/telegraf:ro
+    restart: unless-stopped
+    networks:
+      - server-net
